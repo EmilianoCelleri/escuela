@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 const calificacionSchema = new Schema({
     alumno: { type: Schema.Types.ObjectId, ref: 'Alumno', required: true },
     curso: { type: Schema.Types.ObjectId, ref: 'Curso', required: true },

@@ -5,7 +5,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const AlumnoCtrl = require("./controllers/alumnos");
-const moment = require('moment-timezone');
+const CursoCtrl = require("./controllers/cursos");
+const CalificacionCtrl = require("./controllers/calificaciones");
+const ProfesorCtrl = require("./controllers/profesores");
+
 
 //Configurar archivos static
 app.use(express.static(path.join(__dirname, 'public')));
@@ -56,6 +59,7 @@ app.get('/index', function (req, res) {
 
 //Rutas Api
 
+// Alumnos
 var alumnos = express.Router();
 alumnos.route("/alumnos")
   .get(AlumnoCtrl.findAllAlumnos)
@@ -64,6 +68,27 @@ alumnos.route("/alumnos/:id")
   .get(AlumnoCtrl.findAlumnoById)
   .delete(AlumnoCtrl.deleteAlumno);
 
+//Curso
+var cursos = express.Router();
+cursos.route("/cursos")
+  .post(CursoCtrl.addCurso);
+
+//Calificacion
+var calificaciones = express.Router();
+calificaciones.route("/calificaciones")
+  .post(CalificacionCtrl.addCalificacion);
+
+//Profesor
+var profesores = express.Router();
+profesores.route("/profesores")
+  .post(ProfesorCtrl.addProfesor);
+
+
 app.use("/api", alumnos);
+app.use("/api", cursos);
+app.use("/api", calificaciones);
+app.use("/api", profesores);
+
+
 
             
