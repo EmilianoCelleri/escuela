@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Login
+    link(rel="stylesheet", href="/css/styles.css")
+  body
+    h1 Login
+    form(action="/login" method="POST")
+      div
+        label(for="nombreUsuario") Nombre de Usuario:
+        input(type="text" name="nombreUsuario" required placeholder="Ingresa tu nombre de usuario")
+      div
+        label(for="clave") Contraseña:
+        input(type="password" name="clave" required placeholder="Ingresa tu contraseña")
+      div
+        button(type="submit") Iniciar Sesión

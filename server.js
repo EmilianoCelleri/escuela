@@ -8,12 +8,13 @@ const AlumnoCtrl = require("./controllers/alumnos");
 const CursoCtrl = require("./controllers/cursos");
 const CalificacionCtrl = require("./controllers/calificaciones");
 const ProfesorCtrl = require("./controllers/profesores");
-
+const LoginCtrl = require('./controllers/usuarios');
 
 //Configurar archivos static
 app.use(express.static(path.join(__dirname, 'public')));
 //Bodyparser
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 //Configuracion de engine pug
@@ -54,6 +55,12 @@ app.get('/', function (req, res) {
 app.get('/index', function (req, res) {
   res.render('index');
 });
+
+app.get('/login',  (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', LoginCtrl.login);
 
 
 
