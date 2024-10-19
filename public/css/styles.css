@@ -5,10 +5,11 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  div {
-    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
   
   label {
@@ -30,11 +31,7 @@
   
 
 /* Reset de margen y padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 
 
 body {
@@ -63,10 +60,6 @@ p {
 }
 
 
-.navbar {
-    margin-bottom: 20px; 
-}
-
 
 .footer {
     background-color: #343a40; 
@@ -84,4 +77,92 @@ p {
     .navbar-nav {
         text-align: center; 
     }
+}
+
+
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #343a40;
+}
+
+/* Table Styles */
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #343a40;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  table {
+      width: 100%;
+  }
+
+  thead {
+      display: none;
+  }
+
+  tbody td {
+      display: block;
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+      border-bottom: 1px solid #dee2e6;
+  }
+
+  tbody td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      padding-left: 15px;
+      font-weight: bold;
+      color: #343a40;
+  }
 }

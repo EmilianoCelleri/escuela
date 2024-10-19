@@ -60,6 +60,12 @@ app.get('/login',  (req, res) => {
   res.render('login');
 });
 
+app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
+
+//app.get('/calificaciones',  (req, res) => {
+ // res.render('calificaciones');
+//});
+
 app.post('/login', LoginCtrl.login);
 
 
@@ -83,12 +89,15 @@ cursos.route("/cursos")
 //Calificacion
 var calificaciones = express.Router();
 calificaciones.route("/calificaciones")
-  .post(CalificacionCtrl.addCalificacion);
+  .post(CalificacionCtrl.addCalificacion)
+  .get(CalificacionCtrl.findCalificaciones);
 
 //Profesor
 var profesores = express.Router();
 profesores.route("/profesores")
   .post(ProfesorCtrl.addProfesor);
+
+
 
 
 app.use("/api", alumnos);

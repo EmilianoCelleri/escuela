@@ -59,3 +59,23 @@ exports.addCalificacion = async function (req, res) {
         });
     }
 };
+
+
+
+//GET de todas las calificaciones
+// Obtener todas las calificaciones y renderizar una vista
+exports.findCalificaciones = async (req, res) => {
+    try {
+      const calificaciones = await Calificacion.find()
+        .populate('alumno', 'nombre apellido')
+        .populate('curso', 'nombre')
+        .populate('profesor', 'nombre apellido')
+        .exec();
+  
+      // Renderiza la vista calificaciones.pug y pasa los datos
+      res.render('calificaciones', { calificaciones });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener las calificaciones' });
+    }
+  };
+  
