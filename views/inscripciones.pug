@@ -1,0 +1,16 @@
+extends layout
+block content
+    .container
+      h1 Inscribir Alumno a un Curso
+      form(action='/inscripciones' method='POST')
+        .form-group
+          label(for='alumno') Seleccionar Alumno
+          select.form-control(name='alumno' id='alumno')
+            each alumno in alumnos
+              option(value=alumno._id)= `${alumno.nombre} ${alumno.apellido}`
+        .form-group
+          label(for='curso') Seleccionar Curso
+          select.form-control(name='curso' id='curso')
+            each curso in cursos
+              option(value=curso._id)= curso.nombre
+        button.btn.btn-primary(type='submit') Inscribir Alumno

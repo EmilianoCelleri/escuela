@@ -1,19 +1,14 @@
-//- views/calificaciones.pug
-doctype html
-html
-  head
-    title Calificaciones
-    link(rel="stylesheet", href="/css/styles.css")
-  body
-    h1 Calificaciones de los alumnos
+extends layout
+block content 
+  h1 Calificaciones de los alumnos
 
-    table
-      thead
-        tr
-          th Alumno
-          th Curso
-          th Profesor
-          th Calificación
+  table
+    thead
+      tr
+        th Alumno
+        th Curso
+        th Profesor
+        th Calificación
       tbody
         each calificacion in calificaciones
           tr
@@ -21,7 +16,3 @@ html
             td #{calificacion.curso.nombre}
             td #{calificacion.profesor.nombre} #{calificacion.profesor.apellido}
             td #{calificacion.notaFinal}
-
-    // Footer opcional
-    footer
-      p © 2024 Escuela - Todos los derechos reservados.

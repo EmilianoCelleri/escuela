@@ -4,11 +4,14 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const Alumno = require('./models/alumnoModel')
 const AlumnoCtrl = require("./controllers/alumnos");
 const CursoCtrl = require("./controllers/cursos");
+const Curso = require('./models/cursoModel')
 const CalificacionCtrl = require("./controllers/calificaciones");
 const ProfesorCtrl = require("./controllers/profesores");
 const LoginCtrl = require('./controllers/usuarios');
+const InscripcionCtrl = require('./controllers/inscripciones');
 
 //Configurar archivos static
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,6 +70,18 @@ app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
 //});
 
 app.post('/login', LoginCtrl.login);
+
+
+app.get('/inscripciones', async (req, res) => {
+  // Traemos alumnos y cursos de la base de datos para el select
+  const alumnos = await Alumno.find();
+  const cursos = await Curso.find();
+  res.render('inscripciones', { alumnos, cursos });
+});
+
+app.post('/inscripciones', InscripcionCtrl.inscribirAlumno);
+
+
 
 
 

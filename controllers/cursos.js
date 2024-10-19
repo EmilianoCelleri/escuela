@@ -2,6 +2,19 @@ var mongoose = require('mongoose');
 const Curso = require('../models/cursoModel')
 
 
+//GET todos los cursos
+
+exports.findAllCursos = async function (req, res) {
+  try {
+      const cursos = await Curso.find();
+      console.log('GET /cursos');
+      res.status(200).json(cursos);
+  } catch (err) {
+      res.status(500).send(err.message);
+  }
+};
+
+
 exports.addCurso = async function (req, res)  {
         //Impresion por consola del metodo con el body
         console.log('POST /addCurso');

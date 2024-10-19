@@ -1,35 +1,6 @@
-doctype html
-html(lang="es")
-  head
-    title Escuela
-    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/css/styles.css")
-  body
-    //- Barra de navegación
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href="/index") Escuela
-      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
-        span.navbar-toggler-icon
-      div#navbarNav.collapse.navbar-collapse
-        ul.navbar-nav
-          li.nav-item
-            a.nav-link(href="/index") Inicio
-          li.nav-item
-            a.nav-link(href="/calificaciones") Calificaciones
-          li.nav-item
-            a.nav-link(href="/login") Iniciar Sesión
+extends layout
 
-    //- Contenido principal
-    main.container.mt-5
-      h1.text-center Conoce nuestros cursos y programas
-      p.text-center Ofrecemos una variedad de cursos para todos los niveles, con profesores expertos en cada materia.
-
-    //- Pie de página
-    footer.footer.mt-5
-      div.container
-        p.text-center © 2024 Escuela - Todos los derechos reservados.
-
-    //- Scripts
-    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2/dist/umd/popper.min.js")
-    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
+block content
+  section.main-content.my-5
+    h1 Nuestros Cursos
+    p Conoce todos los cursos que ofrecemos para diferentes niveles y áreas de estudio.
