@@ -3,6 +3,8 @@ const Alumno = require('../models/alumnoModel');
 const Curso = require('../models/cursoModel');
 const Profesor = require('../models/profesorModel');
 
+
+//POST agregar calificacion
 exports.addCalificacion = async function (req, res) {
     console.log('POST /addCalificacion');
     console.log(req.body);
@@ -76,6 +78,42 @@ exports.findCalificaciones = async (req, res) => {
       res.render('calificaciones', { calificaciones });
     } catch (error) {
       res.status(500).json({ error: 'Error al obtener las calificaciones' });
+    }
+  };
+   
+  // Vista para mostrar el form
+  exports.formCalificacion = async (req, res) => {
+    try {
+      // Obtener alumnos y cursos para el formulario
+      const alumnos = await Alumno.find();
+      const cursos = await Curso.find();
+      const profesores = await Profesor.find();
+      
+      res.render('cargar_calificacion', { alumnos, cursos, profesores });
+    } catch (error) {
+      console.error('Error al cargar el formulario:', error);
+      res.status(500).render('index', { mensaje: 'Error al cargar el formulario' });
+    }
+  };
+  
+  // Cargar la calificación ( POST)
+  exports.cargarCalificacion = async (req, res) => {
+    const { alumno, curso, profesor, notaFinal } = req.body;
+  
+    try {
+      const nuevaCalificacion = new Calificacion({
+        alumno,
+        curso,
+        profesor,
+        notaFinal
+      });
+      
+      await nuevaCalificacion.save();
+  
+      res.render('index', { mensaje: 'Calificación guardada exitosamente' });
+    } catch (error) {
+      console.error('Error al guardar calificación:', error);
+      res.status(500).render('index', { mensaje: 'Error al guardar calificación' });
     }
   };
   

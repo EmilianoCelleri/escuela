@@ -7,15 +7,17 @@ exports.inscribirAlumno = async (req, res) => {
   try {
     const cursoEncontrado = await Curso.findById(curso);
     if (!cursoEncontrado) {
-      return res.status(404).send('Curso no encontrado');
+      return res.status(404).render('index', { mensaje: 'Curso no encontrado' });
     }
 
     cursoEncontrado.alumnosInscriptos.push(alumno);
     await cursoEncontrado.save();
 
-    res.redirect('/');
+    // Redirigir a la página de inicio con el mensaje de éxito
+    res.render('index', { mensaje: 'Alumno inscripto exitosamente' });
   } catch (error) {
     console.error('Error al inscribir alumno:', error);
-    res.status(500).send('Error al inscribir alumno');
+    res.status(500).render('index', { mensaje: 'Error al inscribir alumno' });
   }
 };
+

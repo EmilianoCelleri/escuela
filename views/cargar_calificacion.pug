@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .container.my-5
+    h1 Cargar Calificación
+
+    if mensaje
+      .alert.alert-info #{mensaje}
+
+    form(method="POST", action="/cargar_calificacion")
+      .form-group
+        label(for="alumno") Alumno
+        select.form-control(name="alumno", required)
+          each alumno in alumnos
+            option(value=alumno._id) #{alumno.nombre} #{alumno.apellido}
+        
+      .form-group
+        label(for="curso") Curso
+        select.form-control(name="curso", required)
+          each curso in cursos
+            option(value=curso._id) #{curso.nombre}
+      
+      .form-group
+        label(for="profesor") Profesor
+        select.form-control(name="profesor", required)
+          each profesor in profesores
+            option(value=profesor._id) #{profesor.nombre} #{profesor.apellido}
+
+      .form-group
+        label(for="notaFinal") Nota
+        input.form-control(type="number", name="notaFinal", placeholder="Ingrese la nota", min="0", max="10", step="1", required)
+      
+      button.btn.btn-primary(type="submit") Cargar Calificación

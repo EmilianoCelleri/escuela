@@ -2,5 +2,8 @@ extends layout
 
 block content
   section.main-content.my-5
-    h1 Nuestros Cursos
-    p Conoce todos los cursos que ofrecemos para diferentes niveles y áreas de estudio.
+    if mensaje
+      .alert.alert-info
+        | #{mensaje}
+    h1 Bienvenido a la Escuela
+    p Ofrecemos una variedad de cursos para todos los niveles, con profesores expertos en cada materia.

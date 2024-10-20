@@ -183,3 +183,7 @@ input:focus {
   border-color: #007bff; 
   outline: none; 
 }
+
+.alert.alert-info {
+  text-align: center;
+}

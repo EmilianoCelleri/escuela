@@ -12,11 +12,14 @@ const CalificacionCtrl = require("./controllers/calificaciones");
 const ProfesorCtrl = require("./controllers/profesores");
 const LoginCtrl = require('./controllers/usuarios');
 const InscripcionCtrl = require('./controllers/inscripciones');
+const PadreCtrl = require("./controllers/padres");
 
 //Configurar archivos static
 app.use(express.static(path.join(__dirname, 'public')));
+
 //Bodyparser
 app.use(bodyParser.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -71,7 +74,7 @@ app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
 
 app.post('/login', LoginCtrl.login);
 
-
+//Cargar inscipcion con Form
 app.get('/inscripciones', async (req, res) => {
   // Traemos alumnos y cursos de la base de datos para el select
   const alumnos = await Alumno.find();
@@ -80,6 +83,12 @@ app.get('/inscripciones', async (req, res) => {
 });
 
 app.post('/inscripciones', InscripcionCtrl.inscribirAlumno);
+
+//Cargar calificacion con Form
+app.get('/cargar_calificacion', CalificacionCtrl.formCalificacion);
+
+// Ruta para procesar el formulario de calificación
+app.post('/cargar_calificacion', CalificacionCtrl.cargarCalificacion);
 
 
 
@@ -112,6 +121,12 @@ var profesores = express.Router();
 profesores.route("/profesores")
   .post(ProfesorCtrl.addProfesor);
 
+//Padres
+var padres = express.Router();
+padres.route("/padres")
+  .post(PadreCtrl.addPadre)
+  .get(PadreCtrl.findAllPadres);
+
 
 
 
@@ -119,6 +134,7 @@ app.use("/api", alumnos);
 app.use("/api", cursos);
 app.use("/api", calificaciones);
 app.use("/api", profesores);
+app.use("/api", padres);
 
 
 
