@@ -103,7 +103,8 @@ alumnos.route("/alumnos")
   .post(AlumnoCtrl.addAlumno);
 alumnos.route("/alumnos/:id")
   .get(AlumnoCtrl.findAlumnoById)
-  .delete(AlumnoCtrl.deleteAlumno);
+  .delete(AlumnoCtrl.deleteAlumno)
+  .put(AlumnoCtrl.updateAlumno);
 
 //Curso
 var cursos = express.Router();

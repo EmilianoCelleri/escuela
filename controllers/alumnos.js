@@ -95,3 +95,34 @@ exports.deleteAlumno = async function (req, res) {
   }
 };
 
+//PUT
+exports.updateAlumno = async (req, res) => {
+  const { id } = req.params; // Obtenemos el ID del alumno desde los parámetros de la URL
+  const { nombre, apellido, fechaNacimiento, dni, email, cursosInscriptos, padres } = req.body; // Obtenemos los datos desde el body de la solicitud
+
+  try {
+    // Busca al alumno por su ID y actualiza los campos
+    const alumnoActualizado = await Alumno.findByIdAndUpdate(
+      id,  // ID del alumno a actualizar
+      {
+        nombre,
+        apellido,
+        fechaNacimiento,
+        dni,
+        email,
+        cursosInscriptos,
+        padres
+      },
+      { new: true, runValidators: true }  // `new: true` para devolver el documento actualizado, `runValidators: true` para aplicar las validaciones del modelo
+    );
+
+    if (!alumnoActualizado) {
+      return res.status(404).send('Alumno no encontrado');
+    }
+
+    res.status(200).json(alumnoActualizado);  // Devuelve el alumno actualizado en la respuesta
+  } catch (error) {
+    console.error('Error al actualizar el alumno:', error);
+    res.status(500).send('Error al actualizar el alumno');
+  }
+};
