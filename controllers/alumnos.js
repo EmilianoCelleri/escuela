@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 const Alumno = require('../models/alumnoModel')
 
 
-//Obtener todos los alumnos
+// GET - Obtener todos los alumnos
 exports.findAllAlumnos = async function (req, res) {
     try {
         const alumnos = await Alumno.find();
@@ -14,7 +14,7 @@ exports.findAllAlumnos = async function (req, res) {
   };
 
 
-//Buscar Alumno por ID
+// GET - Buscar Alumno por ID
 exports.findAlumnoById = async function (req, res) {
   try {
     const alumno = await Alumno.findById(req.params.id);
@@ -25,16 +25,16 @@ exports.findAlumnoById = async function (req, res) {
   
     console.log('GET /alumnos/' + req.params.id);
     res.status(200).json(alumno);
-    } catch (err) {
+  } catch (err) {
       console.error('Error al buscar el alumno:', err.message);
       res.status(500).json({ message: 'Error al buscar el alumno', error: err.message });
-    }
-  };
+  }
+};
   
 
-// Insertar un nuevo alumno
+// POST - Crear un nuevo alumno
 exports.addAlumno = async function (req, res) {
-    
+
     //Impresion por consola del metodo con el body
     console.log('POST /addAlumno');
     console.log(req.body);
@@ -76,7 +76,7 @@ exports.addAlumno = async function (req, res) {
   };
   
 
-// Eliminar Alumno por ID
+// DELETE - Eliminar Alumno por ID
 exports.deleteAlumno = async function (req, res) {
   
   console.log('DEL /alumnos/' + req.params.id);
@@ -95,8 +95,8 @@ exports.deleteAlumno = async function (req, res) {
   }
 };
 
-//PUT
-exports.updateAlumno = async (req, res) => {
+//PUT - Modificar Alumno por ID
+exports.updateAlumno = async function (req, res) => {
   const { id } = req.params; // Obtenemos el ID del alumno desde los parámetros de la URL
   const { nombre, apellido, fechaNacimiento, dni, email, cursosInscriptos, padres } = req.body; // Obtenemos los datos desde el body de la solicitud
 
