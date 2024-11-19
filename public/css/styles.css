@@ -187,3 +187,58 @@ input:focus {
 .alert.alert-info {
   text-align: center;
 }
+
+.chat-container {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.chat-box p {
+  margin: 5px 0;
+  padding: 5px 10px;
+  background: #eaf3ff;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-form .form-control {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.chat-form .btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chat-form .btn:hover {
+  background: #0056b3;
+}
