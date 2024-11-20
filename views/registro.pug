@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  body
+    h1 Registro de Usuario
+    form(action="/registro" method="POST")
+      .form-group
+        label(for="nombreUsuario") Nombre de Usuario:
+        input#nombreUsuario.form-control(type="text" name="nombreUsuario" required placeholder="Ingresa tu nombre de usuario")
+      .form-group
+        label(for="clave") Contraseña:
+        input#clave.form-control(type="password" name="clave" required placeholder="Ingresa tu contraseña")
+      .form-group
+        label(for="tipoUsuario") Tipo de Usuario:
+        select#tipoUsuario.form-control(name="tipoUsuario" required)
+          option(value="") -- Selecciona un tipo --
+          option(value="alumno") Alumno
+          option(value="profesor") Profesor
+          option(value="administrativo") Administrativo
+      .form-group
+        label(for="refId") Referencia (ID):
+        input#refId.form-control(type="text" name="refId" placeholder="Ingresa el ID del alumno, profesor o personal relacionado")
+      button.btn.btn-primary(type="submit") Registrarse

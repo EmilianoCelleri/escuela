@@ -11,7 +11,7 @@ const CursoCtrl = require("./controllers/cursos");
 const Curso = require('./models/cursoModel')
 const CalificacionCtrl = require("./controllers/calificaciones");
 const ProfesorCtrl = require("./controllers/profesores");
-const LoginCtrl = require('./controllers/usuarios');
+const UsuarioCtrl = require('./controllers/usuarios');
 const InscripcionCtrl = require('./controllers/inscripciones');
 const PadreCtrl = require("./controllers/padres");
 const socketIO = require('socket.io');
@@ -105,11 +105,19 @@ app.get('/login',  (req, res) => {
   res.render('login');
 });
 
+//Registro
+
+app.get('/registro', (req, res) => {
+  res.render('registro');
+});
+
+app.post('/registro', UsuarioCtrl.registro);
+
 //View de Calificaciones
 app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
 
 //View de Login
-app.post('/login', LoginCtrl.login);
+app.post('/login', UsuarioCtrl.login);
 
 //Cargar inscipcion con Form
 app.get('/inscripciones', async (req, res) => {

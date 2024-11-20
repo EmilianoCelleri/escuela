@@ -1,13 +1,16 @@
-extends layout 
+extends layout
+
 block content
-  body
-    h1 Login
-    form(action="/login" method="POST")
-      div
-        label(for="nombreUsuario") Nombre de Usuario:
-        input(type="text" name="nombreUsuario" required placeholder="Ingresa tu nombre de usuario")
-      div
-        label(for="clave") Contraseña:
-        input(type="password" name="clave" required placeholder="Ingresa tu contraseña")
-      div
-        button(type="submit") Iniciar Sesión
+  h1 Iniciar Sesión
+
+  if error
+    .alert.alert-danger.text-center= error
+
+  form(action="/login" method="POST" class="mt-4")
+    .form-group
+      label(for="nombreUsuario") Nombre de Usuario:
+      input#nombreUsuario.form-control(type="text" name="nombreUsuario" required placeholder="Ingresa tu nombre de usuario")
+    .form-group
+      label(for="clave") Contraseña:
+      input#clave.form-control(type="password" name="clave" required placeholder="Ingresa tu contraseña")
+    button.btn.btn-primary(type="submit") Iniciar Sesión

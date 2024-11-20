@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const usuarioSchema = new Schema({
     nombreUsuario: { type: String, required: true, unique: true },
-    clave: { type: String, required: true },
+    claveHash: { type: String, required: true },
     tipoUsuario: { 
       type: String, 
       enum: ['alumno', 'profesor', 'administrativo', 'admin'], 
@@ -12,7 +12,7 @@ const usuarioSchema = new Schema({
     refId: {  // Referencia al alumno, profesor o personal
       type: Schema.Types.ObjectId, 
       refPath: 'tipoUsuario',
-      required: true
+      required: false
     }
   }, { timestamps: true });
   
