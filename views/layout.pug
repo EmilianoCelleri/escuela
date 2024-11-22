@@ -14,16 +14,28 @@ html(lang="es")
         ul.navbar-nav
           li.nav-item
             a.nav-link(href="/index") Inicio
-          li.nav-item
-            a.nav-link(href="/calificaciones") Calificaciones
-          li.nav-item
-            a.nav-link(href="/inscripciones") Inscripciones
-          li.nav-item
-            a.nav-link(href="/cargar_calificacion") Cargar Calificacion
-          li.nav-item
-            a.nav-link(href="/chat") Chat
-          li.nav-item
-            a.nav-link(href="/login") Iniciar Sesión
+          
+          if isAuthenticated
+            li.nav-item
+              a.nav-link(href="/calificaciones") Calificaciones
+            li.nav-item
+              a.nav-link(href="/inscripciones") Inscripciones
+            li.nav-item
+              a.nav-link(href="/cargar_calificacion") Cargar Calificacion
+            li.nav-item
+              a.nav-link(href="/chat") Chat
+            li.nav-item
+              a.nav-link(href="/logout") Cerrar Sesión
+            li.nav-item.ml-auto.d-flex.justify-content-end
+              span.nav-link.text-danger.font-weight-bold #{usuario.nombreUsuario}
+          else
+            li.nav-item
+              a.nav-link(href="/login") Iniciar Sesión
+
+
+
+    if mensaje
+      .alert.alert-info #{mensaje}
 
     block content
 

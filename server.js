@@ -17,12 +17,33 @@ const PadreCtrl = require("./controllers/padres");
 const socketIO = require('socket.io');
 const server = http.createServer(app);
 const io = socketIO(server);
+const { errorHandler, authenticateSession } = require('./middlewares/autenticacion');
+const session = require('express-session');
+const passport = require('passport');
+const configurePassport = require('./config/passport-config');
 
 //Configurar archivos static
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/websocket', express.static(__dirname + '/websocket'));
 
-//Bodyparser JSON
+//Session
+app.use(session({
+  secret: process.env.SECRET || 'secret', // Definir el secreto para firmar las cookies de sesión
+  resave: false, // No volver a guardar la sesión si no ha habido cambios
+  saveUninitialized: true // Guardar sesiones incluso si no se han inicializado
+}));
+
+//Passport
+configurePassport(passport);
+app.use(passport.initialize()); // Inicializa Passport para manejar la autenticación
+app.use(passport.session()); // Habilita la gestión de sesión con Passport
+
+// Middleware global para datos de la sesión --- pasar al layout
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated(); // true si está logueado
+  res.locals.usuario = req.user || null; // Usuario autenticado, si existe
+  next();
+});
 
 
 //Para trabajar con forms
@@ -42,7 +63,7 @@ server.listen(PORT, () => {
 });
 
 //Conexion a Mongo
-mongoose.connect("mongodb://localhost:27017/escuela")
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Conexión a MongoDB exitosa');
   })
@@ -82,7 +103,7 @@ io.on('connection', function (socket) {
   });
 });
 
-app.get('/chat', function (req, res) {
+app.get('/chat', authenticateSession, function (req, res) {
   console.log(messages);
   res.render('chat');
 });
@@ -118,6 +139,7 @@ app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
 
 //View de Login
 app.post('/login', UsuarioCtrl.login);
+app.get('/logout', UsuarioCtrl.logout);
 
 //Cargar inscipcion con Form
 app.get('/inscripciones', async (req, res) => {
@@ -128,13 +150,13 @@ app.get('/inscripciones', async (req, res) => {
 });
 
 //Inscribir alumnos
-app.post('/inscripciones', InscripcionCtrl.inscribirAlumno);
+app.post('/inscripciones', authenticateSession, InscripcionCtrl.inscribirAlumno);
 
 //Cargar calificacion con Form
-app.get('/cargar_calificacion', CalificacionCtrl.formCalificacion);
+app.get('/cargar_calificacion', authenticateSession, CalificacionCtrl.formCalificacion);
 
 // Ruta para procesar el formulario de calificación
-app.post('/cargar_calificacion', CalificacionCtrl.cargarCalificacion);
+app.post('/cargar_calificacion',authenticateSession, CalificacionCtrl.cargarCalificacion);
 
 
 //Rutas Api

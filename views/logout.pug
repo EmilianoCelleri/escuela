@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1 Cerrar Sesión
+  p ¿Estás seguro de que deseas cerrar sesión?
+  form(action="/usuarios/logout" method="POST")
+    button(type="submit") Cerrar Sesión
+    a(href="/index") Cancelar

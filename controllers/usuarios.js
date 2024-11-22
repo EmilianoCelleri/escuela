@@ -1,37 +1,24 @@
 const Usuario = require('../models/usuarioModel');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
-exports.login = async function (req, res) {
-  const { nombreUsuario, clave } = req.body;
 
-  // Verifica si el usuario ingresó ambos campos
-  if (!nombreUsuario || !clave) {
-    return res.status(400).render('login', { error: 'Por favor, completa todos los campos' });
-  }
-
-  try {
-    // Buscar al usuario por nombre de usuario
-    const usuario = await Usuario.findOne({ nombreUsuario });
-    
-    // Si no se encuentra el usuario
-    if (!usuario) {
-      return res.status(401).render('login', { error: 'Credenciales incorrectas' });
-    }
-
-    // Verifica la contraseña usando bcrypt
-    const isPasswordValid = await bcrypt.compare(clave, usuario.claveHash);
-    if (!isPasswordValid) {
-      return res.status(401).render('login', { error: 'Credenciales incorrectas' });
-    }
-
-    // Redirige a la página de inicio si todo es correcto
-    res.render('index', { mensaje: 'Bienvenido!' });
-
-  } catch (error) {
-    console.error('Error al intentar iniciar sesión:', error);
-    return res.status(500).render('login', { error: 'Hubo un problema en el servidor, inténtalo más tarde' });
-  }
+exports.login = (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/index', 
+    failureRedirect: '/login',
+  })(req, res, next);
 };
+
+exports.logout = (req, res) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
+    res.render('login', { mensaje: 'Sesion cerrada exitosamente' }); // Redirige al formulario de login tras cerrar sesión
+  });
+};
+
 
 
 exports.registro = async function (req, res) {
