@@ -113,7 +113,7 @@ app.get('/chat', authenticateSession, function (req, res) {
 //Rutas app web
 
 //Index en '' y /index
-app.get('/', function (req, res) {
+app.get('/',  function (req, res) {
   res.render('index');
 });
 
@@ -135,14 +135,14 @@ app.get('/registro', (req, res) => {
 app.post('/registro', UsuarioCtrl.registro);
 
 //View de Calificaciones
-app.get('/calificaciones', CalificacionCtrl.findCalificaciones);
+app.get('/calificaciones', authenticateSession, CalificacionCtrl.findCalificaciones);
 
 //View de Login
 app.post('/login', UsuarioCtrl.login);
 app.get('/logout', UsuarioCtrl.logout);
 
 //Cargar inscipcion con Form
-app.get('/inscripciones', async (req, res) => {
+app.get('/inscripciones', authenticateSession, async (req, res) => {
   // Traemos alumnos y cursos de la base de datos para el select
   const alumnos = await Alumno.find();
   const cursos = await Curso.find();
